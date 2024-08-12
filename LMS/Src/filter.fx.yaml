@@ -1,0 +1,355 @@
+"filter As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    OnVisible: |
+        =ClearCollect(
+            Header,
+            {
+        
+                LeaveType:"Leave Type",
+                Plan:"Planned/Unplanned",
+                Manager:"Approver",
+                SD:"Start Date",
+                ED:"End Date",
+                Days:"No. of Days",
+                Status:"Leave Status",
+                Dep:"Department",
+                Type:"Type"
+            }
+        );
+        ClearCollect(
+            LeaveType,
+            {Value:"All leaves"}
+            ,
+            Choices([@Leaves].'Leave type')
+        );
+        ClearCollect(
+            Dep,
+            {Value:"All Departments"}
+            ,
+            Choices([@Leaves].Department)
+        );
+        
+        ClearCollect(
+            Status,
+            {Value:"All Status"}
+            ,
+            Choices([@Leaves].'Leave status')
+        );
+        
+        ClearCollect(
+            Plan,
+            {Value:"All Plan"}
+            ,
+            Choices([@Leaves].'Select type')
+        );
+
+    RectQuickActionBar2_1 As rectangle:
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    LblAppName2_1 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =88
+        Size: =18
+        Text: |-
+            ="View Applications
+            "
+        Width: =Parent.Width
+        ZIndex: =2
+
+    Canvas2_1 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height - Self.Y
+        Width: =Parent.Width
+        Y: =RectQuickActionBar2_1.Y + RectQuickActionBar2_1.Height
+        ZIndex: =3
+
+        DataCard3_1 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(232, 244, 217, 1)
+            Height: =674
+            Visible: =true
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Gallery1_1 As gallery.galleryVertical:
+                DelayItemLoading: =true
+                Fill: =RGBA(232, 244, 217, 1)
+                Height: =343
+                Items: |-
+                    =Filter(
+                        Leaves,
+                        Substitute(
+                            Dropdown1.SelectedText.Value,
+                            "All leaves",
+                            ""
+                        ) in 'Leave type'.Value,
+                        Substitute(
+                            Dropdown1_1.SelectedText.Value,
+                            "All Status",
+                            ""
+                        ) in 'Leave status'.Value,
+                        Substitute(
+                            Dropdown1_2.SelectedText.Value,
+                            "All Departments",
+                            ""
+                        ) in Department.Value,
+                        If(
+                            Dropdown1_3.SelectedText.Value = "All Plan",
+                            Or(
+                               'Select type'.Value = "Planned leave",
+                                'Select type'.Value = "Unplanned leave"
+                            ),
+                            Dropdown1_3.SelectedText.Value in 'Select type'.Value
+                        ),
+                        TextInput1.Text in Title 
+                    )
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplateFill: =If(ThisItem.IsSelected,RGBA(255,255,255,255),RGBA(0,0,0,0))
+                TemplateSize: =111
+                Width: =1366
+                Y: =162
+                ZIndex: =1
+
+                Label1_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Title
+                    X: =24
+                    Y: =40
+                    ZIndex: =1
+
+                Label2_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'Start Date'
+                    X: =402
+                    Y: =40
+                    ZIndex: =2
+
+                Label3_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'Leave status'.Value
+                    X: =746
+                    Y: =40
+                    ZIndex: =3
+
+                Label5_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'Compliance Asset Id'
+                    X: =1004
+                    Y: =40
+                    ZIndex: =5
+
+                Label6_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: |-
+                        =ThisItem.'# of Days'
+                    Width: =62
+                    X: =676
+                    Y: =40
+                    ZIndex: =6
+
+                Label7_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Department.Value
+                    X: =868
+                    Y: =40
+                    ZIndex: =7
+
+                Label9_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'End date'
+                    X: =531
+                    Y: =40
+                    ZIndex: =9
+
+                Label11_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'Leave type'.Value
+                    X: =1020
+                    Y: =40
+                    ZIndex: =11
+
+                Label12_1 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Manager.DisplayName
+                    X: =265
+                    Y: =40
+                    ZIndex: =12
+
+                Label16_1 As label:
+                    Height: =80
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'Select type'.Value
+                    Width: =122
+                    X: =139
+                    Y: =20
+                    ZIndex: =14
+
+                Button4_1 As button:
+                    OnSelect: |-
+                        =EditForm(Form1);
+                        Navigate(Screen2,ScreenTransition.Cover,{Selct:Gallery1_1.Selected})
+                    Text: |-
+                        ="Edit
+                        "
+                    X: =1170
+                    Y: =40
+                    ZIndex: =15
+
+    Rectangle1_1 As rectangle:
+        Fill: =RGBA(204, 231, 246, 1)
+        Height: =59
+        Width: =1366
+        Y: =190
+        ZIndex: =4
+
+    Label26_10 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Leave Type"
+        Width: =100
+        X: =24
+        Y: =200
+        ZIndex: =5
+
+    Label26_11 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Planned/UnPlanned"
+        Width: =100
+        X: =140
+        Y: =200
+        ZIndex: =6
+
+    Label26_12 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Approver"
+        Width: =100
+        X: =279
+        Y: =200
+        ZIndex: =7
+
+    Label26_13 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Start Date"
+        Width: =100
+        X: =410
+        Y: =200
+        ZIndex: =8
+
+    Label26_14 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="End Date"
+        Width: =100
+        X: =542
+        Y: =200
+        ZIndex: =9
+
+    Label26_15 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="No. of days"
+        Width: =100
+        X: =650
+        Y: =200
+        ZIndex: =10
+
+    Label26_16 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Status"
+        Width: =100
+        X: =758
+        Y: =200
+        ZIndex: =11
+
+    Label26_17 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Department"
+        Width: =114
+        X: =874
+        Y: =200
+        ZIndex: =12
+
+    Label26_18 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Type"
+        Width: =100
+        X: =1047
+        Y: =200
+        ZIndex: =13
+
+    Label26_19 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =12
+        Text: ="Action"
+        Width: =100
+        X: =1207
+        Y: =200
+        ZIndex: =14
+
+    Icon3_1 As icon.Home:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.Home
+        OnSelect: =Navigate(Screen1,ScreenTransition.Cover)
+        X: =1285
+        Y: =12
+        ZIndex: =15
+
+    Icon4_1 As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(Screen1,ScreenTransition.UnCover)
+        X: =24
+        Y: =12
+        ZIndex: =16
+
+    TextInput1 As text:
+        Default: =
+        HintText: ="Search"
+        Width: =292
+        X: =30
+        Y: =113
+        ZIndex: =17
+
+    Dropdown1 As dropdown:
+        Items: =LeaveType.Value
+        Width: =220
+        X: =364
+        Y: =113
+        ZIndex: =18
+
+    Dropdown1_1 As dropdown:
+        Items: =Status.Value
+        Width: =220
+        X: =614
+        Y: =113
+        ZIndex: =19
+
+    Dropdown1_2 As dropdown:
+        Items: =Dep.Value
+        Width: =220
+        X: =864
+        Y: =113
+        ZIndex: =20
+
+    Dropdown1_3 As dropdown:
+        Items: =Plan.Value
+        Width: =220
+        X: =1118
+        Y: =113
+        ZIndex: =21
+

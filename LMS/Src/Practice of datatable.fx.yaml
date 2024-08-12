@@ -1,0 +1,213 @@
+"'Practice of datatable' As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+
+    RectQuickActionBar3 As rectangle:
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    LblAppName3 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =88
+        Size: =18
+        Text: ="Datatable demo"
+        Width: =Parent.Width
+        ZIndex: =2
+
+    Canvas3 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height - Self.Y
+        Width: =Parent.Width
+        Y: =RectQuickActionBar3.Y + RectQuickActionBar3.Height
+        ZIndex: =3
+
+        DataCard4 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - 100
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+    DataTable1 As dataGrid:
+        Height: =408
+        Items: =Leaves
+        Width: =1366
+        Y: =87
+        ZIndex: =4
+
+        Title As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Title"
+            FieldName: ="Title"
+            Height: =0
+            IsHyperlink: =false
+            Order: =0
+            Required: =false
+            TitleProperty: =""
+            Type: ="s"
+            VariantName: ="textualViewCard"
+            Width: =160
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+        Department As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Department"
+            FieldName: ="Department"
+            Height: =0
+            IsHyperlink: =false
+            Order: =1
+            Required: =false
+            TitleProperty: ="Value"
+            Type: ="E"
+            VariantName: ="comboBoxViewCard"
+            Width: =240
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+        Manager As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Manager"
+            FieldName: ="Manager"
+            Height: =0
+            IsHyperlink: =false
+            Order: =2
+            Required: =false
+            TitleProperty: ="DisplayName"
+            Type: ="E"
+            VariantName: ="comboBoxViewCard"
+            Width: =240
+            X: =0
+            Y: =0
+            ZIndex: =3
+
+        Start_x0020_Date As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Start Date"
+            FieldName: ="Start_x0020_Date"
+            Height: =0
+            IsHyperlink: =false
+            Order: =3
+            Required: =false
+            TitleProperty: =""
+            Type: ="D"
+            VariantName: ="textualViewCard"
+            Width: =160
+            X: =0
+            Y: =0
+            ZIndex: =4
+
+        End_x0020_date As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="End date"
+            FieldName: ="End_x0020_date"
+            Height: =0
+            IsHyperlink: =false
+            Order: =4
+            Required: =false
+            TitleProperty: =""
+            Type: ="D"
+            VariantName: ="textualViewCard"
+            Width: =160
+            X: =0
+            Y: =0
+            ZIndex: =5
+
+        OData__x0023__x0020_of_x0020_Days As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: |-
+                ="# of Days"
+            FieldName: ="OData__x0023__x0020_of_x0020_Days"
+            Height: =0
+            IsHyperlink: =false
+            Order: =5
+            Required: =false
+            TitleProperty: =""
+            Type: ="s"
+            VariantName: ="textualViewCard"
+            Width: =160
+            X: =0
+            Y: =0
+            ZIndex: =6
+
+        Leave_x0020_status As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Leave status"
+            FieldName: ="Leave_x0020_status"
+            Height: =0
+            IsHyperlink: =false
+            Order: =6
+            Required: =false
+            TitleProperty: ="Value"
+            Type: ="E"
+            VariantName: ="comboBoxViewCard"
+            Width: =240
+            X: =0
+            Y: =0
+            ZIndex: =7
+
+        Leave_x0020_type As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Leave type"
+            FieldName: ="Leave_x0020_type"
+            Height: =0
+            IsHyperlink: =false
+            Order: =7
+            Required: =false
+            TitleProperty: ="Value"
+            Type: ="E"
+            VariantName: ="comboBoxViewCard"
+            Width: =240
+            X: =0
+            Y: =0
+            ZIndex: =8
+
+        Select_x0020_type As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Select type"
+            FieldName: ="Select_x0020_type"
+            Height: =0
+            IsHyperlink: =false
+            Order: =8
+            Required: =false
+            TitleProperty: ="Value"
+            Type: ="E"
+            VariantName: ="comboBoxViewCard"
+            Width: =240
+            X: =0
+            Y: =0
+            ZIndex: =9
+
+        Manager_x0020_Comments As customControl.dataColumn:
+            AutoWidth: =true
+            DisplayName: ="Manager Comments"
+            FieldName: ="Manager_x0020_Comments"
+            Height: =0
+            IsHyperlink: =false
+            Order: =9
+            Required: =false
+            TitleProperty: =""
+            Type: ="s"
+            VariantName: ="textualViewCard"
+            Width: =160
+            X: =0
+            Y: =0
+            ZIndex: =10
+
+    Button5 As button:
+        OnSelect: |
+            =EditForm(Form1);
+            Navigate(Screen2,ScreenTransition.Cover,{Selected:DataTable1.Selected});
+        Text: ="Edit"
+        X: =603
+        Y: =507
+        ZIndex: =5
+
